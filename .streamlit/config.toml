@@ -1,0 +1,9 @@
+[server]
+enableStaticServing = true
+
+[theme]
+primaryColor = "#003DA5"  # Color de los botones y elementos interactivos
+backgroundColor = "#E6E6FA"  # Color de fondo
+secondaryBackgroundColor = "#336699"  # Color de la barra lateral
+textColor = "#000000"  # Color del texto
+font = "sans serif"  # Tipo de fuente para toda la aplicación
