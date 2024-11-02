@@ -9,7 +9,7 @@ import plotly.express as px
 
 st.set_page_config(layout="wide")
 
-st.subheader("💻Desarrollo y Control de Asistencia de Empleados")
+st.subheader("💻Control de Asistencia de Empleados")
 
 # Verificar si ya existe una instancia de la aplicación
 if not firebase_admin._apps:  

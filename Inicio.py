@@ -44,7 +44,7 @@ with col3:
     st.write("Desarrollador Web")
 
 with col4:
-    st.image("static\Carla.png", width=140)  # Reemplaza con la ruta de la foto
+    st.image("static\Usuario1.png", width=140)  # Reemplaza con la ruta de la foto
     st.write("**Carla Karina**")
     st.write("Desarrollador Web")
 
