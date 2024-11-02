@@ -10,7 +10,7 @@ def image_to_base64(image):
     img_str = base64.b64encode(buffered.getvalue()).decode()
     return img_str
 
-st.set_page_config(layout="wide", page_title="Mapping Demo", page_icon="🌍")
+st.set_page_config(layout="wide", page_title="Proyecto Integrador", page_icon="💻")
 
 # Cargar la imagen
 image = Image.open("static/Logo.png")
@@ -39,12 +39,12 @@ with col2:
 col3, col4, col5 = st.columns(3)
 
 with col3:
-    st.image("static/Alejandro.png", width=130)  # Reemplaza con la ruta de la foto
+    st.image("static/Alejandro.png", width=110)  # Reemplaza con la ruta de la foto
     st.write("**Alejandro Muñoz**")
     st.write("Desarrollador Web")
 
 with col4:
-    st.image("static/user.png", width=120)  # Reemplaza con la ruta de la foto
+    st.image("static\Carla.png", width=140)  # Reemplaza con la ruta de la foto
     st.write("**Carla Karina**")
     st.write("Desarrollador Web")
 
@@ -54,23 +54,12 @@ with col5:
     st.write("Desarrollador Web")
 
 # Descripción del proyecto
-st.header("Sobre el Proyecto")
-st.write("""
-    [Escribe ao principal, la problemática que aborda y el enfoque que se utiliza. Puedes ser creativo y usar un lenguaje atractivo.]
-""")
+st.header("Concimiento")
+st.write("""Somos estudiantes capacitados en la creación de proyectos en Streamlit, utilizando librerías como pandas y conectándonos a bases de datos con Firebase.""")
 
 # Más información
-st.header("Más Información")
-
-# Puedes añadir secciones como:
-# - Tecnología utilizada
-# - Resultados esperados
-# - Presentación de resultados (fecha y formato)
-# - Contacto para preguntas
-
-st.write("""
-[Agrega la información adicional que consideres relevante.]
-""")
+st.header("Proyectos")
+st.write("""Desarrollamos tres tipos de proyectos analizando diversas fuentes de datos para obtener información más precisa y fácil de comprender.""")
 
 # redes sociales
 st.markdown(

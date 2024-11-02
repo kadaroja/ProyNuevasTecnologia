@@ -2,8 +2,8 @@
 enableStaticServing = true
 
 [theme]
-primaryColor = "#003DA5"  # Color de los botones y elementos interactivos
+primaryColor = "#DA70D6"  # Color de botones y elementos interactivos
 backgroundColor = "#E6E6FA"  # Color de fondo
-secondaryBackgroundColor = "#336699"  # Color de la barra lateral
+secondaryBackgroundColor = "#D8BFD8"  # Color de la barra lateral (tono lila claro)
 textColor = "#000000"  # Color del texto
 font = "sans serif"  # Tipo de fuente para toda la aplicación

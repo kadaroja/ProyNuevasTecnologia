@@ -35,12 +35,12 @@ with tad_descripcion:
 
     st.markdown('''
 
-    ### 📊 ¿Qué es el proyecto?
-    El proyecto consiste en el desarrollo de un panel de control digital diseñado específicamente para la gestión de la asistencia de empleados en una empresa.
-    ### 🎯 ¿Cuál es el objetivo principal?
+    ### 📊 Nuestro Proyecto
+    Consiste en el desarrollo de un panel de control digital diseñado específicamente para la gestión de la asistencia de empleados en una empresa.
+    ### 🎯 Objetivo principal
     Es desarrollar un panel de control que permita al Administrador gestionar y monitorear la asistencia de los empleados de manera eficiente. Esto incluye el registro de entradas y salidas, la gestión de ausencias y tardanzas.
-    ### 🚀 ¿Por qué es importante?
-    La implementación de este panel de control es crucial por varias razones:
+    ### 🚀 Su Importancia
+    La implementación de este panel de control es crucial para las empresas por varias razones:
 
     - Eficiencia: Reduce el tiempo y el esfuerzo que el Administrador dedica a gestionar manualmente la asistencia, lo que permite enfocarse en tareas más estratégicas.
     - Precisión: Disminuye la probabilidad de errores en el cálculo de horas trabajadas y la generación de reportes, asegurando que la información sea más confiable.
@@ -180,9 +180,8 @@ with tab_datos:
 #Analítica 1
 #----------------------------------------------------------
 with tab_Análisis_Exploratorio:    
-    st.title("Análisis Exploratorio")
+    st.title("😎Análisis Exploratorio")
     st.markdown("""
-    * Muestra las primeras 5 filas del DataFrame.  **(df.head())**
     * Muestra la cantidad de filas y columnas del DataFrame.  **(df.shape)**
     * Muestra los tipos de datos de cada columna.  **(df.dtypes)**
     * Identifica y muestra las columnas con valores nulos. **(df.isnull().sum())**
@@ -208,7 +207,7 @@ with tab_Análisis_Exploratorio:
         df = df_employees
     else:
         df = df_attendance
-
+    st.markdown("""Conoce los primeras 5 filas de nuestro Dataframe""")
     # Mostrar las primeras 5 filas del DataFrame
     st.subheader("Primeras 5 filas del DataFrame")
     st.dataframe(df.head())
