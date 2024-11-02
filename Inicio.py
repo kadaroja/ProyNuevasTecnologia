@@ -43,9 +43,14 @@ with col3:
     st.write("**Alejandro Muñoz**")
     st.write("Desarrollador Web")
 
-with col5:
+with col4:
     st.image("static/user.png", width=100)  # Reemplaza con la ruta de la foto
     st.write("**Victor Manuel**")
+    st.write("Desarrollador Web")
+
+with col4:
+    st.image("static/user.png", width=100)  # Reemplaza con la ruta de la foto
+    st.write("**Carla karina**")
     st.write("Desarrollador Web")
 
 # Descripción del proyecto
