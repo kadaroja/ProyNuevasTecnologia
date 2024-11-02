@@ -26,7 +26,7 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 
-tad_descripcion, tab_Generador, tab_datos, tab_Análisis_Exploratorio, tab_Filtrado_Básico, tab_Filtro_Final_Dinámico = st.tabs(["Descripción", "Generador de datos", "Datos", "Análisis Exploratorio", "Filtrado Básico", "Filtro Final Dinámico"])
+tad_descripcion, tab_Generador, tab_datos, tab_Análisis_Exploratorio, tab_Filtro_Final_Dinámico = st.tabs(["Descripción", "Generador de datos", "Datos", "Análisis Exploratorio", "Filtro Final Dinámico"])
 
 #----------------------------------------------------------
 #Generador de datos
@@ -181,15 +181,7 @@ with tab_datos:
 #----------------------------------------------------------
 with tab_Análisis_Exploratorio:    
     st.title("😎Análisis Exploratorio")
-    st.markdown("""
-    * Muestra la cantidad de filas y columnas del DataFrame.  **(df.shape)**
-    * Muestra los tipos de datos de cada columna.  **(df.dtypes)**
-    * Identifica y muestra las columnas con valores nulos. **(df.isnull().sum())**
-    * Muestra un resumen estadístico de las columnas numéricas.  **(df.describe())**
-    * Muestra una tabla con la frecuencia de valores únicos para una columna categórica seleccionada. **(df['columna_categorica'].value_counts())** 
-    * Otra información importante  
-    """)
-    
+
     # Obtener datos de empleados
     employees = db.collection('empleados').stream()
     employees_data = [doc.to_dict() for doc in employees]
@@ -207,8 +199,7 @@ with tab_Análisis_Exploratorio:
         df = df_employees
     else:
         df = df_attendance
-    st.markdown("""Conoce los primeras 5 filas de nuestro Dataframe""")
-    # Mostrar las primeras 5 filas del DataFrame
+    
     st.subheader("Primeras 5 filas del DataFrame")
     st.dataframe(df.head())
 
@@ -224,22 +215,24 @@ with tab_Análisis_Exploratorio:
     st.subheader("Columnas con valores nulos")
     st.write(df.isnull().sum())
 
-    # Mostrar un resumen estadístico de las columnas numéricas
-    st.subheader("Resumen estadístico de columnas numéricas")
-    st.write(df.describe())
-
     # Mostrar frecuencia de valores únicos para una columna categórica seleccionada
-    st.subheader("Frecuencia de valores únicos en columna categórica")
+    st.subheader("Conteo de datos por columnas")
     categorical_columns = df.select_dtypes(include=['object']).columns
     selected_column = st.selectbox("Seleccione una columna categórica", categorical_columns)
     st.write(df[selected_column].value_counts())
 
     # Otra información importante
     st.subheader("Otra información importante")
-    
+   
     if df_to_analyze == "Empleados":
-        # Distribución de edades
-        fig_age = px.histogram(df, x='edad', nbins=20, title='Distribución de edades de los empleados')
+    # Distribución de edades con colores personalizados
+        fig_age = px.histogram(
+            df,
+            x='edad',
+            nbins=20,
+            title='Distribución de edades de los empleados',
+            color_discrete_sequence=['#FF69B4']  # Cambia este código hexadecimal por el color que desees
+        )
         st.plotly_chart(fig_age)
 
         # Distribución por departamento
@@ -255,18 +248,7 @@ with tab_Análisis_Exploratorio:
         fig_entrada = px.histogram(df, x='fecha_entrada', title='Distribución de fechas de entrada')
         st.plotly_chart(fig_entrada)
 #----------------------------------------------------------
-#Analítica 2
-#----------------------------------------------------------
-with tab_Filtrado_Básico:
-        st.title("Filtro Básico")
-        st.markdown("""
-        * Permite filtrar datos usando condiciones simples. **(df[df['columna'] == 'valor'])**
-        * Permite seleccionar una columna y un valor para el filtro. **(st.selectbox, st.text_input)**
-        * Permite elegir un operador de comparación (igual, diferente, mayor que, menor que). **(st.radio)**
-        * Muestra los datos filtrados en una tabla. **(st.dataframe)** 
-        """)
 
-#----------------------------------------------------------
 #Analítica 2
 #----------------------------------------------------------
 with tab_Filtro_Final_Dinámico:
