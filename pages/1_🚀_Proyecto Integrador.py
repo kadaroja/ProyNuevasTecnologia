@@ -6,6 +6,8 @@ import firebase_admin
 from datetime import datetime, date, timedelta
 from firebase_admin import credentials, firestore  
 import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 st.set_page_config(layout="wide")
 
@@ -117,6 +119,11 @@ with tab_Generador:
 
     col1, col2 = st.columns(2)
 
+    def delete_collection(collection_name):
+        docs = db.collection(collection_name).get()
+        for doc in docs:
+            doc.reference.delete()
+
     with col1:
         st.subheader('Empleados')
         num_employees = st.number_input('Número de empleados a generar', min_value=1, max_value=300, value=10)
@@ -127,6 +134,12 @@ with tab_Generador:
             st.success(f'{num_employees} empleados añadidos a Firestore')
             st.dataframe(pd.DataFrame(employees))
             st.session_state.employees = employees
+
+    # Botón para borrar empleados
+        if st.button('Borrar Empleados'):
+            with st.spinner('Borrando empleados...'):
+                delete_collection('empleados') # type: ignore
+            st.success('Todos los empleados eliminados de Firestore')
 
     with col2:
         st.subheader('Asistencia')
@@ -140,6 +153,11 @@ with tab_Generador:
                     add_data_to_firestore('asistencia', attendance)
                 st.success(f'{num_attendance} registros de asistencia añadidos a Firestore')
                 st.dataframe(pd.DataFrame(attendance))
+
+        if st.button('Borrar Asistencia'):
+            with st.spinner('Borrando registros de asistencia...'):
+                delete_collection('asistencia')
+            st.success('Todos los registros de asistencia eliminados de Firestore')
 
     def delete_collection(collection_name):
         docs = db.collection(collection_name).get()
@@ -253,10 +271,33 @@ with tab_Análisis_Exploratorio:
 #----------------------------------------------------------
 with tab_Filtro_Final_Dinámico:
         st.title("Filtro Final Dinámico")
-        st.markdown("""
-        * Muestra un resumen dinámico del DataFrame filtrado. 
-        * Incluye información como los criterios de filtrado aplicados, la tabla de datos filtrados, gráficos y estadísticas relevantes.
-        * Se actualiza automáticamente cada vez que se realiza un filtro en las pestañas anteriores. 
-        """)
+   
+    # Filtrar el DataFrame (ejemplo simple)
+        dept_filter = st.multiselect("Seleccione el departamento", df_employees['departamento'].unique())
+        if dept_filter:
+            filtered_df = df_employees[df_employees['departamento'].isin(dept_filter)]
+        else:
+            filtered_df = df_employees  # Mostrar todos si no hay filtro
 
+        st.write("Datos filtrados:", filtered_df)
 
+    # Visualización dinámica con gráficos en Seaborn
+        st.subheader("Gráficos de Distribución")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("Distribución de Edades")
+            fig, ax = plt.subplots()
+            sns.histplot(filtered_df['edad'], kde=True, ax=ax)
+            st.pyplot(fig)
+
+        with col2:
+            st.write("Distribución de Empleados por Departamento")
+            fig, ax = plt.subplots()
+            sns.countplot(data=filtered_df, x='departamento', palette='viridis', ax=ax)
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+            st.pyplot(fig)
+
+    # Estadísticas relevantes
+        st.subheader("Estadísticas Resumidas del DataFrame Filtrado")
+        st.write(filtered_df.describe())

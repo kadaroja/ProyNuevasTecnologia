@@ -27,12 +27,12 @@ st.write("En nuestro equipo encontrarás respaldo y profesionalismo, con habilid
 _, col1, col2, _ = st.columns([1, 2, 2, 1])    # Columna vacía a la derecha e izquierda para centrar
 
 with col1:
-    st.image("static/Gabriel.png", width=80)  # Reemplaza con la ruta de la foto
+    st.image("static/Gabriel.png", width=110)  # Reemplaza con la ruta de la foto
     st.write("**Gabriel Patiño**")
     st.write("Product Owner")
 
 with col2:
-    st.image("static/Karla.png", width=130)  # Reemplaza con la ruta de la foto
+    st.image("static/Karla.png", width=110)  # Reemplaza con la ruta de la foto
     st.write("**Karla Rodriguez**")
     st.write("Scrum Master")
 # Segunda fila con tres columnas
@@ -44,12 +44,12 @@ with col3:
     st.write("Desarrollador Web")
 
 with col4:
-    st.image("static/user.png", width=100)  # Reemplaza con la ruta de la foto
+    st.image("static/Victor.png", width=110)  # Reemplaza con la ruta de la foto
     st.write("**Victor Manuel**")
     st.write("Desarrollador Web")
 
-with col4:
-    st.image("static/user.png", width=100)  # Reemplaza con la ruta de la foto
+with col5:
+    st.image("static/carla.png", width=110)  # Reemplaza con la ruta de la foto
     st.write("**Carla karina**")
     st.write("Desarrollador Web")
 
