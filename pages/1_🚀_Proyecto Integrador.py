@@ -285,19 +285,36 @@ with tab_Filtro_Final_Dinámico:
         st.subheader("Gráficos de Distribución")
 
         col1, col2 = st.columns(2)
+
+        # Configuramos una paleta de colores pastel
+        pastel_palette = sns.color_palette("pastel")
+
         with col1:
             st.write("Distribución de Edades")
             fig, ax = plt.subplots()
-            sns.histplot(filtered_df['edad'], kde=True, ax=ax)
+            sns.histplot(filtered_df['edad'], kde=True, ax=ax, color=pastel_palette[2])  # Color pastel específico
             st.pyplot(fig)
 
         with col2:
             st.write("Distribución de Empleados por Departamento")
             fig, ax = plt.subplots()
-            sns.countplot(data=filtered_df, x='departamento', palette='viridis', ax=ax)
+            sns.countplot(data=filtered_df, x='departamento', palette=pastel_palette, ax=ax)  # Paleta de tonos pastel
             ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
             st.pyplot(fig)
 
-    # Estadísticas relevantes
-        st.subheader("Estadísticas Resumidas del DataFrame Filtrado")
-        st.write(filtered_df.describe())
+        # Gráfico de Distribución de Edades por Ciudad (Box plot)
+        with col1:
+            st.write("Distribución de Edades por Ciudad (Box plot)")
+            fig, ax = plt.subplots()
+            sns.boxplot(data=filtered_df, x='ciudad', y='edad', palette=pastel_palette, ax=ax)
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+            st.pyplot(fig)
+
+        # Gráfico de Distribución de Edades por Cargo (Violin plot)
+        with col2:
+            st.write("Distribución de Edades por Cargo (Violin plot)")
+            fig, ax = plt.subplots()
+            sns.violinplot(data=filtered_df, x='cargo', y='edad', palette=pastel_palette, ax=ax)
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+            st.pyplot(fig)
+

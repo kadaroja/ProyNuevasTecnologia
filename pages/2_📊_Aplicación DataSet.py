@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px
 
 st.set_page_config(layout="wide")
 
@@ -50,16 +53,6 @@ with tad_descripcion:
 #Analítica 1
 #----------------------------------------------------------
 with tab_Análisis_Exploratorio:    
-    st.title("Análisis Exploratorio")
-    st.markdown("""
-    * Muestra las primeras 5 filas del DataFrame.  **(df.head())**
-    * Muestra la cantidad de filas y columnas del DataFrame.  **(df.shape)**
-    * Muestra los tipos de datos de cada columna.  **(df.dtypes)**
-    * Identifica y muestra las columnas con valores nulos. **(df.isnull().sum())**
-    * Muestra un resumen estadístico de las columnas numéricas.  **(df.describe())**
-    * Muestra una tabla con la frecuencia de valores únicos para una columna categórica seleccionada. **(df['columna_categorica'].value_counts())** 
-    * Otra información importante           
-    """) 
 
         # Muestra las primeras 5 filas del DataFrame
     st.subheader("Primeras 5 filas")
@@ -77,38 +70,81 @@ with tab_Análisis_Exploratorio:
     st.subheader("Columnas con valores nulos")
     st.write(df.isnull().sum())
     
-    # Muestra un resumen estadístico
-    st.subheader("Resumen estadístico")
-    st.write(df.describe())
-    
-    # Muestra la frecuencia de valores únicos de una columna categórica
-    # Asegúrate de reemplazar 'columna_categorica' con una columna real de tu DataFrame
-    st.subheader("Frecuencia de valores de columna categórica")
-    if 'Nombre del Departamento' in df.columns:
-        st.write(df['Nombre del Departamento'].value_counts())
-    else:
-        st.write("La columna 'Nombre del Departamento' no existe en el DataFrame.")
-    
-    # Otra información importante (puedes agregar más análisis aquí según lo necesites)
-    st.subheader("Otra información importante")
-    st.write("Puedes agregar más visualizaciones o análisis aquí.")  
+    # Resumen de conteo por año
+    if 'Ano' in df.columns:
+        st.subheader("Conteo de registros por Año")
+        conteo_por_ano = df['Ano'].value_counts().sort_index()  # Cuenta los registros por año
+        st.write(conteo_por_ano)  
     
 #----------------------------------------------------------
 
 #Analítica 2
 #----------------------------------------------------------
-with tab_Filtro_Final_Dinámico:
-        st.title("Filtro Final Dinámico")
-        st.markdown("""
-        * Muestra un resumen dinámico del DataFrame filtrado. 
-        * Incluye información como los criterios de filtrado aplicados, la tabla de datos filtrados, gráficos y estadísticas relevantes.
-        * Se actualiza automáticamente cada vez que se realiza un filtro en las pestañas anteriores. 
-        """)
-
-
-
+with st.container():
+    st.title("Filtro Final Dinámico")
+    st.markdown("""
+    * Muestra un resumen dinámico del DataFrame filtrado. 
+    * Incluye información como los criterios de filtrado aplicados, la tabla de datos filtrados, gráficos y estadísticas relevantes.
+    * Se actualiza automáticamente cada vez que se realiza un filtro en las pestañas anteriores. 
+    """)
     
+    # Filtros interactivos
+    st.sidebar.header("Filtros de Datos")
+    
+    # Filtro por años (selección múltiple)
+    años_filtrados = st.sidebar.multiselect("Selecciona los Años", df['Ano'].unique(), default=df['Ano'].unique())
+    
+    # Filtro por departamentos (selección múltiple)
+    departamentos_filtrados = st.sidebar.multiselect("Selecciona los Departamentos", df['Nombre del Departamento'].unique(), default=df['Nombre del Departamento'].unique())
+    
+    # Filtro por nivel académico (por ejemplo, 'TECNICA PROFESIONAL')
+    nivel_filtrado = st.sidebar.selectbox("Selecciona el Nivel Académico", df.columns[3:8])  # Asumiendo que los niveles académicos están en las columnas 3-7
 
+    # Filtrado del DataFrame
+    df_filtrado = df[(df['Ano'].isin(años_filtrados)) & (df['Nombre del Departamento'].isin(departamentos_filtrados))]
 
+    # Mostrar criterios de filtro y DataFrame filtrado
+    st.subheader("Criterios de Filtrado Aplicados")
+    st.write("Años seleccionados:", años_filtrados)
+    st.write("Departamentos seleccionados:", departamentos_filtrados)
+    st.write("Nivel académico seleccionado:", nivel_filtrado)
+    st.write("Datos Filtrados")
+    st.write(df_filtrado)
 
+    # Estadísticas descriptivas
+    st.subheader("Estadísticas Descriptivas del DataFrame Filtrado")
+    st.write(df_filtrado.describe())
 
+    # Gráficos Dinámicos con Plotly
+    st.subheader(f"Distribución del Nivel Académico: {nivel_filtrado}")
+    
+    # Histograma de los niveles educativos filtrados por año
+    if st.checkbox("Mostrar histograma de distribución de nivel académico", value=True):
+        fig = px.histogram(df_filtrado, 
+                           x='Ano', 
+                           y=nivel_filtrado, 
+                           histfunc="sum",  # Utiliza la suma para visualizar el total por año
+                           color='Ano',  # Colorear por año para hacerlo más visual
+                           labels={nivel_filtrado: 'Número de Matrículas'},  # Etiqueta del eje Y
+                           title=f"Distribución de {nivel_filtrado} por Año",
+                           nbins=15,  # Cantidad de barras en el histograma
+                           template="plotly",  # Estilo visual
+                           color_discrete_sequence=px.colors.qualitative.Pastel1)  # Usar "Pastel1" en lugar de "pastel"
+        st.plotly_chart(fig)
+    
+    # Gráfico de Histogramas por Departamento y Nivel Académico
+    st.subheader(f"Histograma de {nivel_filtrado} por Departamento")
+    if st.checkbox("Mostrar histograma por departamento", value=True):
+        fig = px.histogram(df_filtrado, 
+                           x='Nombre del Departamento', 
+                           y=nivel_filtrado, 
+                           histfunc="sum", 
+                           color='Nombre del Departamento',  # Colorear por departamento
+                           labels={nivel_filtrado: 'Número de Matrículas'},  # Etiqueta eje Y
+                           title=f"Distribución de {nivel_filtrado} por Departamento",
+                           nbins=20,  # Número de barras en el histograma
+                           template="plotly",  # Estilo visual
+                           color_discrete_sequence=px.colors.qualitative.Pastel1)  # Usar "Pastel1" en lugar de "pastel"
+        st.plotly_chart(fig)
+
+    # Otros histogramas pueden ser agregados de manera similar
