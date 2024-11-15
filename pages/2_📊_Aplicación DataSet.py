@@ -146,5 +146,3 @@ with st.container():
                            template="plotly",  # Estilo visual
                            color_discrete_sequence=px.colors.qualitative.Pastel1)  # Usar "Pastel1" en lugar de "pastel"
         st.plotly_chart(fig)
-
-    # Otros histogramas pueden ser agregados de manera similar
