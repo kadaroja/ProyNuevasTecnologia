@@ -36,23 +36,22 @@ def generate_image(prompt):
 # Interfaz de Streamlit
 def main():
     st.title("🤖 Generador de Imágenes con Hugging Face")
-    st.write("Escribe una palabra para generar imágenes con inteligencia artificial Stable Diffusion.")
+    st.write("Escribe una palabra para generar imágenes con inteligencia artificial usando Stable Diffusion.")
 
     # Entrada del usuario
     prompt = st.text_input("Introduce una palabra o frase:")
 
     if st.button("Generar Imágenes"):
         if prompt:
-            st.write(f"Generando 3 imágenes relacionadas para: **{prompt}**")
+            st.write(f"Generando 2 imágenes relacionadas para: **{prompt}**")
 
             # Variar los prompts ligeramente
             prompts = [
-                f"{prompt}, versión 1, estilo artístico",
-                f"{prompt}, versión 2, ilustración detallada",
-                f"{prompt}, versión 3, interpretación surrealista"
+                f"{prompt}, estilo artístico",
+                f"{prompt}, ilustración detallada"
             ]
 
-            # Generar tres imágenes
+            # Generar dos imágenes
             images = []
             for i, custom_prompt in enumerate(prompts):
                 st.write(f"Generando imagen {i + 1} con el prompt: {custom_prompt}...")
@@ -63,7 +62,7 @@ def main():
             # Mostrar las imágenes generadas
             if images:
                 st.write("**Imágenes generadas:**")
-                cols = st.columns(3)  # Dividir en 3 columnas
+                cols = st.columns(2)  # Dividir en 2 columnas
                 for i, img in enumerate(images):
                     with cols[i]:
                         st.image(img, caption=f"Imagen {i + 1}", use_column_width=True)
