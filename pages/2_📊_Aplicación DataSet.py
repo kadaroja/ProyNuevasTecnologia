@@ -81,12 +81,8 @@ with tab_Análisis_Exploratorio:
 #Analítica 2
 #----------------------------------------------------------
 with st.container():
-    st.title("Filtro Final Dinámico")
-    st.markdown("""
-    * Muestra un resumen dinámico del DataFrame filtrado. 
-    * Incluye información como los criterios de filtrado aplicados, la tabla de datos filtrados, gráficos y estadísticas relevantes.
-    * Se actualiza automáticamente cada vez que se realiza un filtro en las pestañas anteriores. 
-    """)
+    st.title("Filtro Dinámico")
+  
     
     # Filtros interactivos
     st.sidebar.header("Filtros de Datos")
