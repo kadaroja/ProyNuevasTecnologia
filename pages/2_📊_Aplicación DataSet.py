@@ -26,13 +26,13 @@ with tad_descripcion:
 
     st.markdown('''
 
-    ### Qué es el proyecto?
+    ### El proyecto
     El proyecto consiste en el desarrollo de una herramienta de gestión de asistencia de empleados mediante la generación y análisis de datos. Utiliza tecnología de visualización 
         interactiva en Streamlit para representar patrones de asistencia y facilita la toma de decisiones informadas.        
-    ### Cuál es el objetivo principal?
+    ### Objetivo principal
     El objetivo principal es optimizar la supervisión y análisis de asistencia de empleados, proporcionando visualizaciones de datos que permitan identificar patrones, 
     reducir ausentismo y mejorar la eficiencia en la gestión de personal.
-    ### Por qué es importante?
+    ### Su importancia
     Este proyecto es importante porque permite a las organizaciones contar con una herramienta visual e interactiva para gestionar la asistencia, lo que facilita la detección temprana
     de problemas y la implementación de medidas correctivas, mejorando la productividad y el ambiente laboral.
     ### Desarrollo
