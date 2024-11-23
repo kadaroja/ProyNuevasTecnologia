@@ -35,7 +35,7 @@ def generate_image(prompt):
 
 # Interfaz de Streamlit
 def main():
-    st.title("🤖 Generador de Imágenes con Hugging Face")
+    st.title("🕹️ Generador de Imágenes con Hugging Face")
     st.write("Escribe una palabra para generar imágenes con inteligencia artificial usando Stable Diffusion.")
 
     # Entrada del usuario
